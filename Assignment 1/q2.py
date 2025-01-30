@@ -1,6 +1,7 @@
 import random
+from math import comb
 
-def simulate_ball_selection(num_simulations=100000):
+def simulate_ball_selection(num_simulations=10000):
     total_balls = 100
     blue_balls = 50
     red_balls = 50
@@ -26,9 +27,9 @@ print("Simulated probability:", probability)
 
 
 # As number of trials are increased, 
-# the delta between the different simulated branches decreases 
+# the delta between the different simulated probability decreases 
 # i.e. the simulated probability converges
-# to the actual probability.
+# to the theoretical probability.
 
 '''
 choosing 5 balls from 100, the total number of ways to do this is given by: 
@@ -45,4 +46,8 @@ when drawing 5 balls at random from a bag containing 100 balls (50 red and 50 bl
 (50! / (3! * 47!)) * (50! / (2! * 48!)) / (100! / (5! * 95!)) = 0.318910757055087
 '''
 
+print((comb(50, 3) * comb(50, 2)) / comb(100, 5))
 print(((50*49*48)/(3*2*1)) * ((50*49)/(2*1)) / ((100*99*98*97*96)/(5*4*3*2*1)))
+
+averageOf5 = (simulate_ball_selection() + simulate_ball_selection() + simulate_ball_selection() + simulate_ball_selection() + simulate_ball_selection())/5
+print(averageOf5)
