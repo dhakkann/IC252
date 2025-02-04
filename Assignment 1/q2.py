@@ -50,4 +50,4 @@ print((comb(50, 3) * comb(50, 2)) / comb(100, 5))
 print(((50*49*48)/(3*2*1)) * ((50*49)/(2*1)) / ((100*99*98*97*96)/(5*4*3*2*1)))
 
 averageOf5 = (simulate_ball_selection() + simulate_ball_selection() + simulate_ball_selection() + simulate_ball_selection() + simulate_ball_selection())/5
-print(averageOf5)
+print("Average of 5 different times:", averageOf5)
