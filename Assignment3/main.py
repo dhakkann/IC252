@@ -2,22 +2,22 @@ import random
 
 def simulate_card_experiment(num_trials):
     cards = [
-        ('red', 'red'),    # Card 1
-        ('black', 'black'), # Card 2
-        ('red', 'black')   # Card 3
+        ('red', 'red'),    
+        ('black', 'black'), 
+        ('red', 'black')   
     ]
     
     red_up_count = 0
     black_other_side = 0
     
-    for _ in range(num_trials):
-        # Randomly select a card
+    for i in range(num_trials):
+        # select card
         card = random.choice(cards)
         
-        # Randomly decide which side is up (0 or 1)
+        # decide which side is up (0 or 1)
         up_side = random.randint(0, 1)
         
-        # If the up-facing side is red
+        # If up-facing side is red
         if card[up_side] == 'red':
             red_up_count += 1
             # Check if other side is black
@@ -29,5 +29,5 @@ def simulate_card_experiment(num_trials):
 
 num_trials = 1000000
 result = simulate_card_experiment(num_trials)
-print(f"After {num_trials:,} trials, the probability that the other side")
-print(f"is black, given that the upturned side is red: {result}")
+print("the probability that the other side")
+print("is black, given that the upturned side is red:", result)
