@@ -1,5 +1,5 @@
 import random
-import math
+from math import perm,comb,factorial
 
 
 
@@ -35,20 +35,18 @@ class BirthdaySimulation:
               f"for {self.matches_needed}+ shared birthdays: {probability}")
 
     def calculate_theoretical(self):
-        total_prob = 0
-        for i in range(12):
-            term = math.perm(self.DAYS_IN_YEAR, self.people_count-i-1)
-            term /= (self.DAYS_IN_YEAR ** self.people_count * math.factorial(i+1))
-            
-            for j in range(self.people_count-2*i, self.people_count+1, 2):
-                term *= math.comb(j, 2)
-            total_prob += term
+        analyticalProb = perm(365, 25) / pow(365, 25)
+        for cases in range(1, 25 // 2 + 1):
+            pairs = 1
+            for n_mult in range(cases):
+                pairs *= comb(25 - 2 * n_mult, 2) * (365 - n_mult)
+            remaining_unique = perm(365 - cases, 25 - 2 * cases)
+            analyticalProb += (pairs * remaining_unique) / (pow(365, 25) * factorial(cases))
 
-        final_prob = 1 - total_prob - (math.perm(self.DAYS_IN_YEAR, self.people_count)
-                                     / (self.DAYS_IN_YEAR ** self.people_count))
+        analyticalProb = 1 - analyticalProb
         
         print(f"Theoretical Probability for {self.matches_needed}+ "
-              f"shared birthdays: {final_prob:.5f}")
+              f"shared birthdays: {analyticalProb:.5f}")
 
 simulation = BirthdaySimulation(3, 25)
 
