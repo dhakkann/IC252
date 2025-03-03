@@ -24,33 +24,17 @@ class GiftSimulation:
         return successful_trials / trials
 
 
-def validate_input():
-    while True:
-        try:
-            n = int(input("Enter the number of employees (n): "))
-            j = int(input("Enter the minimum number of self-matches to check for (j): "))
-            
-            if n <= 0:
-                print("Number of employees must be positive")
-                continue
-            if j > n:
-                print("j cannot be greater than n")
-                continue
-            if j <= 0:
-                print("j must be positive")
-                continue
-                
-            return n, j
-        except ValueError:
-            print("Please enter valid numbers")
 
+n = int(input("n: "))
+j = int(input("j: "))
 
-n, j = validate_input()
 
 simulation = GiftSimulation(n)
-probability = simulation.calculate_probability(j, trials=100000)
+probability = simulation.calculate_probability(j)
 
 print(f"\nAfter 10,000 trials:")
 print(f"Probability that at least {j} out of {n} employees")
 print(f"receive their own gift: {probability}")
+
+
 
