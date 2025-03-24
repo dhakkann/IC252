@@ -22,28 +22,28 @@ class ProbabilityDistribution:
         average = np.mean(result_samples)
         return result_samples, average
     
-    def poisson_distribution(self, lambda_param, sample_count):
+    def poisson_distribution(self, mu, sample_count):
         
         random_values = np.random.uniform(0, 1, sample_count)
         result_samples = []
         
         for value in random_values:
             k = 0
-            cumulative_prob = exp(-lambda_param)  
+            cumulative_prob = exp(-mu)  
             while value > cumulative_prob:  
                 k += 1
-                cumulative_prob += (exp(-lambda_param) * (lambda_param ** k) / factorial(k))
+                cumulative_prob += (exp(-mu) * (mu ** k) / factorial(k))
             result_samples.append(k)
         
         average = np.mean(result_samples)
         return result_samples, average
     
-    def analyze_sample_sizes(self, lambda_param):
+    def analyze_sample_sizes(self, mu):
         sizes = [10, 100, 1000, 10000]
         results = {}
 
         for size in sizes:
-            generatedSamples, avg = self.poisson_distribution(lambda_param, size) 
+            generatedSamples, avg = self.poisson_distribution(mu, size) 
             results[size] = avg  
         
         return results
@@ -53,14 +53,14 @@ generator = ProbabilityDistribution()
 
 binomial_results, binomial_average = generator.binomial_distribution(trials=15, success_prob=0.25, sample_count=1000)
 
-poisson_results, poisson_average = generator.poisson_distribution(lambda_param=0.75, sample_count=1000)
+poisson_results, poisson_average = generator.poisson_distribution(mu=0.75, sample_count=1000)
 
 print("Binomial Experimental Mean:", binomial_average)
 print("Binomial THEORETICAL Mean:", 3.75)
 print("\nPoisson Experimental Mean:", poisson_average)
 print("Poisson THEORETICAL Mean:", 0.75)
 
-sample_size_analysis = generator.analyze_sample_sizes(lambda_param=0.75)
+sample_size_analysis = generator.analyze_sample_sizes(mu=0.75)
 print("\nPoisson Mean Analysis for Different Sample Sizes:")
 for size, avg in sample_size_analysis.items():
     print(f"Samples: {size}, Experimental Mean: {avg}")
